@@ -10,7 +10,7 @@ const cheerio = require('cheerio');
 
 var client_id = '';
 var client_secret = '';
-var redirect_uri = 'http://localhost:3001/authCallback';
+var redirect_uri = 'http://localhost:3002/authCallback';
 
 let token = '';
 
@@ -247,5 +247,5 @@ function GetTracksFromBody(body) {
   return tracks;
 }
 
-console.log('Listening on 3001...');
-app.listen(3001);
+console.log('Listening on 3002...');
+app.listen(3002);

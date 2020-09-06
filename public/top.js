@@ -1,4 +1,4 @@
-const api = 'http://localhost:3001';
+const api = 'http://localhost:3002';
 
 function RefreshTop() {
     var timeRange = document.getElementById('timeRange').value;
