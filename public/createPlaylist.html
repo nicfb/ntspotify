@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create a New Playlist</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    </head>
+    <body style="margin:1em">
+        <div style="width: 20%;margin: 0 auto;">
+            <div>
+                <a href='/'>Home</a>    
+            </div>
+            <input type="text" id="playlistTitle" width="10em" placeholder="Playlist Title" />
+            <input type="text" id="playlistDesc" placeholder="Playlist Description" />
+            <input type="text" id="showLink" placeholder="Enter an NTS show link" />
+            <div>
+                <div style="float: right;">
+                    <input type="button" id="createPlaylist" value="Create Playlist" onclick="GetTracksFromShow()" />
+                </div>
+                <div style="float: left;">
+                    <label>Public?</label>
+                    <input type="checkbox" id="public" />
+                </div>
+            </div>
+            <div id="tracks"></div>
+        </div>
+    </body>
+    <script src="createPlaylist.js"></script>
+</html>
