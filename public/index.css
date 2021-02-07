@@ -1,0 +1,16 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#login {
+    margin-top: 1em;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
