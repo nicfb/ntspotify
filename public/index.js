@@ -8,7 +8,7 @@ $(document).ready(function() {
         $("#links").show();
     } else {
         $("#login").show();
-        $("links").hide();
+        $("#links").hide();
     }
 });
 
