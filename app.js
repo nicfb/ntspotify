@@ -4,12 +4,11 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 const fetch = require('node-fetch');
-const { response } = require('express');
-const url = require('url');
 const cheerio = require('cheerio');
+require('dotenv').config();
 
-var client_id = '';
-var client_secret = '';
+var client_id = process.env.CLIENT_ID;
+var client_secret = process.env.CLIENT_SECRET;
 var redirect_uri = 'http://localhost:3002/authCallback';
 
 let token = '';
@@ -238,10 +237,9 @@ app.post('/addToPlaylist/:playlistID/:trackID', function(req, res) {
 function GetTracksFromBody(body) {
   let tracks = [];
   const $ = cheerio.load(body);
-  const searchResults = $('track').find('')
-  $('body').find('.track').map((i, el) => {
-    let title = $(el).find('.track__title').first().text();
-    let artist = $(el).find('.track__artist').first().text();
+  $('body').find('.track').map((_, track) => {
+    let title = $(track).find('.track__title').first().text();
+    let artist = $(track).find('.track__artist').first().text();
     tracks.push({'title': title, 'artist': artist});
   });
   return tracks;
