@@ -1,23 +1,18 @@
 var express = require('express');
+var session = require('express-session');
 var request = require('request');
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
+
 require('dotenv').config();
 
 var client_id = process.env.CLIENT_ID;
 var client_secret = process.env.CLIENT_SECRET;
 var redirect_uri = 'http://localhost:3002/authCallback';
 
-let token = '';
-
-/**
- * Generates a random string containing numbers and letters
- * @param  {number} length The length of the string
- * @return {string} The generated string
- */
 var generateRandomString = function(length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -31,15 +26,18 @@ var generateRandomString = function(length) {
 var stateKey = 'spotify_auth_state';
 
 var app = express();
-
 app.use(express.json());
 app.use(express.static(__dirname + '/public'))
    .use(cors())
+   .use(session({
+     'secret': process.env.COOKIE_SECRET,
+     resave: true,
+     saveUninitialized: true
+   }))
    .use(cookieParser());
 
 app.get('/login', function(req, res) {
   var state = generateRandomString(16);
-  res.cookie(stateKey, state);
 
   var scope = 'user-read-private user-read-email user-top-read playlist-modify-public playlist-modify-private';
   res.redirect('https://accounts.spotify.com/authorize?' +
@@ -55,15 +53,13 @@ app.get('/login', function(req, res) {
 app.get('/authCallback', function(req, res) {
   var code = req.query.code || null;
   var state = req.query.state || null;
-  var storedState = req.cookies ? req.cookies[stateKey] : null;
 
-  if (state === null || state !== storedState) {
+  if (state === null) {
     res.redirect('/#' +
       querystring.stringify({
         error: 'state_mismatch'
       }));
   } else {
-    res.clearCookie(stateKey);
     var authOptions = {
       url: 'https://accounts.spotify.com/api/token',
       form: {
@@ -82,7 +78,7 @@ app.get('/authCallback', function(req, res) {
         var access_token = body.access_token;
         var refresh_token = body.refresh_token;
 
-        token = access_token;
+        req.session.token = access_token;
 
         var options = {
           url: 'https://api.spotify.com/v1/me',
@@ -112,7 +108,7 @@ app.get('/authCallback', function(req, res) {
 app.get('/me', function(req, res) {
   var options = {
     url: 'https://api.spotify.com/v1/me',
-    headers: { 'Authorization': 'Bearer ' + token },
+    headers: { 'Authorization': 'Bearer ' + req.session.token },
     json: true
   };
   request.get(options, function(error, response, body) {
@@ -148,7 +144,7 @@ app.get('/artists/:timeRange', function(req, res) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + req.session.token
     }
   })
   .then(resp => resp.json())
@@ -163,7 +159,7 @@ app.get('/tracks/:timeRange', function(req, res) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + req.session.token
     }
   })
   .then(resp => resp.json())
@@ -191,7 +187,7 @@ app.get('/search/:q', function(req, res) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + req.session.token
     }
   })
   .then(resp => resp.json())
@@ -206,7 +202,7 @@ app.post('/createPlaylist/:user', function(req, res) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + req.session.token
     },
     body: JSON.stringify({
       "name": req.body.playlist.title,
@@ -226,7 +222,7 @@ app.post('/addToPlaylist/:playlistID/:trackID', function(req, res) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + req.session.token
     },
   }).then(resp => resp.json())
   .then(data => {
