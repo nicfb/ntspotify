@@ -36,7 +36,7 @@ function CreatePlaylist(userID, title, desc, tracks) {
         body: JSON.stringify({
             playlist: {
                 title: title,
-                desc: desc,
+                desc: desc, //include link is description for credit?
                 publicPrivate: document.getElementById('public').checked
             }
         })
@@ -63,6 +63,12 @@ function CreatePlaylist(userID, title, desc, tracks) {
         });
     }).then(() => {
         //TODO: show this after entire playlist is created
-        alert('Playlist created.');
+        //TODO: count and display tracks added to playlist
+        Swal.fire({
+            title: 'Playlist Created.',
+            text: 'Found X tracks.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
     });
 }

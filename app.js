@@ -230,6 +230,7 @@ app.post('/addToPlaylist/:playlistID/:trackID', function(req, res) {
   })
 });
 
+//look into grabbing the tags too. maybe add them to playlist description?
 function GetTracksFromBody(body) {
   let tracks = [];
   const $ = cheerio.load(body);
