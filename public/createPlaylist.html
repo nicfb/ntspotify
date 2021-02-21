@@ -9,12 +9,12 @@
             <div>
                 <a href='/'>Home</a>    
             </div>
-            <input type="text" id="playlistTitle" width="10em" placeholder="Playlist Title" />
-            <input type="text" id="playlistDesc" placeholder="Playlist Description" />
-            <input type="text" id="showLink" placeholder="Enter an NTS show link" />
+            <input type="text" class="form-control" id="playlistTitle" width="10em" placeholder="Playlist Title" />
+            <input type="text" class="form-control" id="playlistDesc" placeholder="Playlist Description" />
+            <input type="text" class="form-control" id="showLink" placeholder="Enter an NTS show link" />
             <div>
                 <div style="float: right;">
-                    <input type="button" id="createPlaylist" value="Create Playlist" onclick="GetTracksFromShow()" />
+                    <input type="button" class="btn btn-primary" id="createPlaylist" value="Create Playlist" onclick="GetTracksFromShow()" />
                 </div>
                 <div style="float: left;">
                     <label>Public?</label>
@@ -24,5 +24,6 @@
             <div id="tracks"></div>
         </div>
     </body>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="createPlaylist.js"></script>
 </html>
