@@ -1,0 +1,26 @@
+<!-- example from https://medium.com/@mag_ops/music-visualiser-with-three-js-web-audio-api-b30175e7b5ba -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Music Visualizer</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="visualizer.css">
+    </head>
+    <body>
+        <div id="content">
+            <label for="thefile" class="file"> Choose an audio file
+              <input type="file" id="thefile" accept="audio/*" />
+            </label>
+        
+            <audio id="audio" controls></audio>
+            <div id="out"></div>
+          </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.3/dat.gui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.3.0/simplex-noise.min.js"></script>
+    <script src="visualizer.js"></script>
+</html>
