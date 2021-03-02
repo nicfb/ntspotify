@@ -64,7 +64,7 @@ function play() {
     plane2.position.set(0, -30, 0);
     group.add(plane2);
 
-    var icosahedronGeometry = new THREE.TetrahedronGeometry(10, 4);
+    var icosahedronGeometry = new THREE.IcosahedronGeometry(10, 4);
     var lambertMaterial = new THREE.MeshLambertMaterial({
         color: 0xff00ee,
         wireframe: true
@@ -83,6 +83,9 @@ function play() {
     spotLight.lookAt(ball);
     spotLight.castShadow = true;
     scene.add(spotLight);
+
+    // var orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+    // orbitControls.autoRotate = true;
     
     scene.add(group);
 
@@ -161,9 +164,6 @@ function play() {
 window.onload = vizInit();
 
 document.body.addEventListener('touchend', function(ev) { context.resume(); });
-
-
-
 
 //some helper functions here
 function fractionate(val, minVal, maxVal) {
