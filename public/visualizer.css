@@ -59,7 +59,7 @@
     z-index: 1;
   }
   
-  label.file{
+  label.file, #nts-buttons {
     display: inline-block;
     position: absolute;
     left: 50%;
@@ -78,21 +78,24 @@
   }
   
   
-  label.file:hover{
+  label.file:hover {
       background: var(--paperColorDark);
       transform: translate3d(-50%, -55%, 0);
   }
   
-  label.file:active{
+  label.file:active {
       background: var(--paperColorDark);
       transform: translate3d(-50%, -45%, 0);
   }
   
-  label.file.normal{
+  label.file.normal, #nts-buttons {
     transform: translate3d(10%, 50%, 0);
     padding: 0.2rem 2rem;
     font-size: 1rem;
     top: 0;
     left: 0;
   }
-  
+
+#nts-buttons {
+  background: none;
+}

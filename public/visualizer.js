@@ -1,4 +1,5 @@
 //example from https://medium.com/@mag_ops/music-visualiser-with-three-js-web-audio-api-b30175e7b5ba
+//TODO: replace all of this...
 
 //initialise simplex noise instance
 var noise = new SimplexNoise();
@@ -24,6 +25,29 @@ var vizInit = function (){
     audio.load();
     audio.play();
     play();
+  }
+
+  var nts1Btn = document.getElementById("nts1Btn");
+  var nts2Btn = document.getElementById("nts2Btn");
+
+  function openNTSStream(stream) {
+      var streamName = stream === 1 ? "" : "2";
+      var nts = `https://stream-relay-geo.ntslive.net/stream${streamName}`;
+      document.getElementById("nts-buttons").classList.add("normal");
+      fileLabel.classList.add("normal");
+      audio.classList.add("active");
+      audio.src = nts;
+      audio.load();
+      audio.play();
+      play();
+  }
+
+  nts1Btn.onclick = function() {
+      openNTSStream(1);
+  }
+
+  nts2Btn.onclick = function() {
+      openNTSStream(2);
   }
   
 function play() {
