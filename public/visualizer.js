@@ -9,16 +9,14 @@ var vizInit = function (){
   
   var file = document.getElementById("thefile");
   var audio = document.getElementById("audio");
-  var fileLabel = document.querySelector("label.file");
+  var sourceSelection = document.querySelector("div.source-selection");
   
-  document.onload = function(e){
+  document.onload = function(e) {
     console.log(e);
     audio.play();
     play();
   }
-  file.onchange = function(){
-    fileLabel.classList.add('normal');
-    audio.classList.add('active');
+  file.onchange = function() {
     var files = this.files;
     
     audio.src = URL.createObjectURL(files[0]);
@@ -33,9 +31,6 @@ var vizInit = function (){
   function openNTSStream(stream) {
       var streamName = stream === 1 ? "" : "2";
       var nts = `https://stream-relay-geo.ntslive.net/stream${streamName}`;
-      document.getElementById("nts-buttons").classList.add("normal");
-      fileLabel.classList.add("normal");
-      audio.classList.add("active");
       audio.src = nts;
       audio.load();
       audio.play();
@@ -51,6 +46,7 @@ var vizInit = function (){
   }
   
 function play() {
+    sourceSelection.classList.remove("active");
     var context = new AudioContext();
     var src = context.createMediaElementSource(audio);
     var analyser = context.createAnalyser();
@@ -60,7 +56,6 @@ function play() {
     var bufferLength = analyser.frequencyBinCount;
     var dataArray = new Uint8Array(bufferLength);
 
-    //here comes the webgl
     var scene = new THREE.Scene();
     var group = new THREE.Group();
     var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -108,9 +103,6 @@ function play() {
     spotLight.castShadow = true;
     scene.add(spotLight);
 
-    // var orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
-    // orbitControls.autoRotate = true;
-    
     scene.add(group);
 
     document.getElementById('out').appendChild(renderer.domElement);

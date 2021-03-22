@@ -5,22 +5,23 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Music Visualizer</title>
-        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
         <link rel="stylesheet" href="visualizer.css">
     </head>
     <body>
-      <div id="nts-buttons">
-        <button class="btn btn-primary" id="nts1Btn">NTS 1</button>
-        <button class="btn btn-primary" id="nts2Btn">NTS 2</button>
-      </div>
-      <div id="content">
-        <label for="thefile" class="file"> Choose an audio file
-          <input type="file" id="thefile" accept="audio/*" />
-        </label>        
-        <audio id="audio" controls crossorigin="anonymous"></audio>
-        <div id="out"></div>
+      <div class="content">
+        <div class="source-selection active">
+          <div>
+            <button class="btn btn-primary one" id="nts1Btn">NTS 1</button>
+            <button class="btn btn-primary two" id="nts2Btn">NTS 2</button>
+          </div>
+          <label for="thefile" class="file three">
+            <input type="file" id="thefile" accept="audio/*" />
+          </label>
+          <audio id="audio" controls crossorigin="anonymous"></audio>
+          <div id="out"></div>
+        </div>
       </div>
     </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
