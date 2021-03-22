@@ -2,6 +2,7 @@ html, body{
   height: 100%;
   width: 100%;
   margin: 0;
+  background: linear-gradient(135deg, #95B8D1, #4B82AA);
 }
 
 .content {
@@ -19,6 +20,19 @@ html, body{
 
 .source-selection.active {
   justify-content: center;
+}
+
+.btn {
+  background-color: #333333;
+  border-color: #333333;
+  border-radius: 5px;
+  color: white;
+  width: 5em;
+  padding: 10px;
+}
+
+#nts-buttons {
+  margin-bottom: 2em;
 }
 
 #audio {
