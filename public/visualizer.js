@@ -10,6 +10,8 @@ var vizInit = function (){
   var file = document.getElementById("thefile");
   var audio = document.getElementById("audio");
   var sourceSelection = document.querySelector("div.source-selection");
+  var context = null;
+  var src = null;
   
   document.onload = function(e) {
     console.log(e);
@@ -47,8 +49,8 @@ var vizInit = function (){
   
 function play() {
     sourceSelection.classList.remove("active");
-    var context = new AudioContext();
-    var src = context.createMediaElementSource(audio);
+    context = context || new AudioContext();
+    src = src || context.createMediaElementSource(audio);
     var analyser = context.createAnalyser();
     src.connect(analyser);
     analyser.connect(context.destination);
